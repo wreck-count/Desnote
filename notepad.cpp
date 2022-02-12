@@ -3,7 +3,10 @@
 
 Notepad::Notepad(QWidget *parent)
     : QMainWindow(parent),
-      ui(new Ui::Notepad)
+      ui(new Ui::Notepad),
+      bModified(false),
+      bExplicitModify(false)
+
 {
     ui->setupUi(this);
     this->setCentralWidget(ui->centralwidget);
@@ -15,7 +18,6 @@ Notepad::Notepad(QWidget *parent)
     connect(ui->undoButton, &QPushButton::clicked, this, &Notepad::undo);
     connect(ui->redoButton, &QPushButton::clicked, this, &Notepad::redo);
     connect(ui->pasteButton,&QPushButton::clicked, this, &Notepad::paste);
-    connect(ui->exitButton, &QPushButton::clicked, this, &Notepad::exit);
     connect(ui->textEdit, &QTextEdit::textChanged, this, &Notepad::setModified);
 }
 
@@ -27,13 +29,26 @@ Notepad::~Notepad()
 
 void Notepad::newFile()
 {
-    if(!isModified()){
-        currentFile.clear();
-        ui->textEdit->setText(QString());
+    if(isModified()){
+        int usrChoice = promptSave();
+
+        switch (usrChoice){
+            case QMessageBox::Save :
+                saveFile();
+                break;
+            case QMessageBox::Cancel :
+                return;
+                break;
+            case QMessageBox::Discard :
+                break;
+        }
     }
-    else{
-        //current file has undergone edits, prompt user for a save
-    }
+    currentFile.clear();
+
+    setExplicitModify(true);
+    ui->textEdit->setText(QString());
+    setExplicitModify(false);
+
 }
 
 void Notepad::saveFile()
@@ -89,7 +104,11 @@ void Notepad::browse()
     setWindowTitle(fileName);
     QTextStream in(&file);
     QString text = in.readAll();
+
+    setExplicitModify(true);
     ui->textEdit->setText(text);
+    setExplicitModify(false);
+
     file.close();
 }
 
@@ -124,9 +143,17 @@ void Notepad::cut()
 #endif
 }
 
-void Notepad::promptSave()
+int Notepad::promptSave()
 {
+    QMessageBox savePrompt;
 
+    savePrompt.setIcon(QMessageBox::Warning);
+    savePrompt.setText("This file has been modified.");
+    savePrompt.setInformativeText("Do you want to save your changes?");
+    savePrompt.setStandardButtons(QMessageBox::Save | QMessageBox::Discard | QMessageBox::Cancel);
+    savePrompt.setDefaultButton(QMessageBox::Save);
+
+    return savePrompt.exec();
 }
 
 bool Notepad::isModified()
@@ -136,12 +163,31 @@ bool Notepad::isModified()
 
 void Notepad::setModified()
 {
-    bModified = true;
+    bModified = bExplicitModify^1;
 }
 
-void Notepad::exit()
+void Notepad::setExplicitModify(bool bExplicitModify)
 {
-    QCoreApplication::quit();
+    this->bExplicitModify = bExplicitModify;
+}
+
+void Notepad::closeEvent(QCloseEvent *event)
+{
+    if(isModified()){
+        int usrChoice = promptSave();
+
+        switch (usrChoice){
+            case QMessageBox::Save :
+                saveFile();
+                break;
+            case QMessageBox::Cancel :
+                return;
+                break;
+            case QMessageBox::Discard :
+                break;
+        }
+    }
+    QMainWindow::closeEvent(event);
 }
 
 

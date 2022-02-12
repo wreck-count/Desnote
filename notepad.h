@@ -36,16 +36,20 @@ private slots:
 
     void cut();
 
-    void promptSave();
+    int promptSave();
 
     bool isModified();
 
     void setModified();
 
-    void exit();
+    void setExplicitModify(bool bExplicitModify);
+
+    void closeEvent(QCloseEvent *event);
+
 private:
     Ui::Notepad *ui;
     QString currentFile;
     bool bModified;
+    bool bExplicitModify;
 };
 #endif // NOTEPAD_H
