@@ -50,8 +50,8 @@
            <string/>
           </property>
           <property name="icon">
-           <iconset>
-            <normaloff>Content/newFileIcon1.png</normaloff>Content/newFileIcon1.png</iconset>
+           <iconset resource="desnoteResource.qrc">
+            <normaloff>:/Content/Content/newFileIcon1.png</normaloff>:/Content/Content/newFileIcon1.png</iconset>
           </property>
           <property name="iconSize">
            <size>
@@ -67,8 +67,8 @@
            <string/>
           </property>
           <property name="icon">
-           <iconset>
-            <normaloff>Content/saveIcon.png</normaloff>Content/saveIcon.png</iconset>
+           <iconset resource="desnoteResource.qrc">
+            <normaloff>:/Content/Content/saveIcon.png</normaloff>:/Content/Content/saveIcon.png</iconset>
           </property>
          </widget>
         </item>
@@ -78,8 +78,8 @@
            <string/>
           </property>
           <property name="icon">
-           <iconset>
-            <normaloff>Content/saveAsIcon1.png</normaloff>Content/saveAsIcon1.png</iconset>
+           <iconset resource="desnoteResource.qrc">
+            <normaloff>:/Content/Content/saveAsIcon1.png</normaloff>:/Content/Content/saveAsIcon1.png</iconset>
           </property>
          </widget>
         </item>
@@ -89,8 +89,8 @@
            <string/>
           </property>
           <property name="icon">
-           <iconset>
-            <normaloff>Content/browseOpenIcon.png</normaloff>Content/browseOpenIcon.png</iconset>
+           <iconset resource="desnoteResource.qrc">
+            <normaloff>:/Content/Content/browseOpenIcon.png</normaloff>:/Content/Content/browseOpenIcon.png</iconset>
           </property>
          </widget>
         </item>
@@ -100,8 +100,8 @@
            <string/>
           </property>
           <property name="icon">
-           <iconset>
-            <normaloff>Content/undoIcon.png</normaloff>Content/undoIcon.png</iconset>
+           <iconset resource="desnoteResource.qrc">
+            <normaloff>:/Content/Content/undoIcon.png</normaloff>:/Content/Content/undoIcon.png</iconset>
           </property>
          </widget>
         </item>
@@ -111,8 +111,8 @@
            <string/>
           </property>
           <property name="icon">
-           <iconset>
-            <normaloff>Content/redoIcon.png</normaloff>Content/redoIcon.png</iconset>
+           <iconset resource="desnoteResource.qrc">
+            <normaloff>:/Content/Content/redoIcon.png</normaloff>:/Content/Content/redoIcon.png</iconset>
           </property>
          </widget>
         </item>
@@ -122,8 +122,8 @@
            <string/>
           </property>
           <property name="icon">
-           <iconset>
-            <normaloff>Content/pasteIcon.png</normaloff>Content/pasteIcon.png</iconset>
+           <iconset resource="desnoteResource.qrc">
+            <normaloff>:/Content/Content/pasteIcon.png</normaloff>:/Content/Content/pasteIcon.png</iconset>
           </property>
          </widget>
         </item>
@@ -155,6 +155,8 @@
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
- <resources/>
+ <resources>
+  <include location="desnoteResource.qrc"/>
+ </resources>
  <connections/>
 </ui>
